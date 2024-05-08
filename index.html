@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script>
+      var map = new L.Map('map');
+      map.setView([40.693, -73.985], 14, false);
+
+      new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© Map tiles <a href="https://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        maxNativeZoom: 20
+      }).addTo(map);
+    </script>
+  </body>
+</html>
