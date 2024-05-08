@@ -1,4 +1,5 @@
 const map = new L.Map('map');
+window.map = map;
 map.setView([40.693, -73.985], 14, false);
 
 new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
