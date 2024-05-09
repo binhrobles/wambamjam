@@ -48,10 +48,16 @@ const predict = async () => {
   if (lastVideoTime !== video.currentTime && video.currentTime - lastVideoTime > 0.001) {
     lastVideoTime = video.currentTime;
     results = handLandmarker.detectForVideo(video, startTimeMs);
+    if (results?.landmarks.length == 1) {
+      // 8 is index finger tip, 4 is thumb tip
+      updateCircle(results.landmarks[0][4], results.landmarks[0][8]);
+    }
+    /*
     if (results?.landmarks.length >= 2) {
       // 8 is index finger tip
       updateCircle(results.landmarks[0][8], results.landmarks[1][8]);
     }
+    */
   }
 
   window.requestAnimationFrame(predict);
