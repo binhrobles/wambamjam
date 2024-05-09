@@ -17,3 +17,7 @@
 
   transform: scaleX(-1);
 }
+
+#control {
+  padding: 6px 8px;
+}
