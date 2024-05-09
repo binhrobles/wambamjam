@@ -42,7 +42,7 @@ const updateCircle = (point1, point2) => {
   const dist = map.distance(latLng1, latLng2);
   const center = L.LineUtil.polylineCenter([latLng1, latLng2], map.options.crs);
 
-  console.log(`center at ${center}, dist is ${dist}`);
+  // console.log(`center at ${center}, dist is ${dist}`);
 
   if (!circleLayer) {
     circleLayer = L.circle(center, {radius: dist/2}).addTo(map);
@@ -50,6 +50,8 @@ const updateCircle = (point1, point2) => {
     circleLayer.setLatLng(center);
     circleLayer.setRadius(dist/2);
   }
+
+  window.handleCircle(circleLayer);
 };
 
 const video = document.getElementById("webcam");
