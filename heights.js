@@ -17,15 +17,18 @@ window.handleCircle = (circle) => {
     return;
   }
   const markers = [];
+  const justHeights = [];
   for (const i of withinBounds) {
     const [x, y, height] = heights.slice(i*3, i*3 + 3);
     if (window.map.distance(circle.getLatLng(), L.latLng(x, y)) > circle.getRadius()) {
       continue;
     }
     markers.push(L.marker([x, y], {title: `${height}`}));
+    justHeights.push(height);
   }
   if (layerGroup) {
     layerGroup.remove();
   }
   layerGroup = L.layerGroup(markers).addTo(window.map);
+  window.change_heights(justHeights);
 };

@@ -42,7 +42,6 @@ function map_heights_to_notes(heights) {
     return final_notes
 }
 
-
 function findBPM(heights){
-    return median(heights)
+    return median(heights) * 4
 }
