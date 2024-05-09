@@ -7,7 +7,7 @@ new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
   maxNativeZoom: 20
 }).addTo(map);
-var osmb = new OSMBuildings(map).load('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
+new OSMBuildings(map).load();
 
 
 // ------ control initialization ------ //
