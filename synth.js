@@ -43,5 +43,6 @@ function map_heights_to_notes(heights) {
 }
 
 function findBPM(heights){
-    return median(heights) * 4
+    const sortedHeights = heights.toSorted();
+    return median(sortedHeights.slice(-5)) * 4
 }
