@@ -26,7 +26,7 @@ function change_heights(buildingData) {
   if (!loop || buildingData.length == 0) {
     return;
   }
-  notes = map_heights_to_notes(buildingData)
+  notes = map_heights_to_notes(heights)
   const bpm = findBPM(heights)
 
   console.log(bpm)
@@ -57,8 +57,8 @@ function map_heights_to_notes(heights) {
     let diffArr = window.mapping_notes.map(x => Math.abs(height - x));
     let minNumber = diffArr.reduce((a, b) => Math.min(a, b), +Infinity);
     let index = diffArr.findIndex(x => x === minNumber);
-    console.log(window.note_range[index], window.mapping_notes[index], height)
-    return note_range[index]
+    console.log(index, window.note_range[index], window.mapping_notes[index], height)
+    return window.note_range[index]
     //synth.triggerAttackRelease(notes[index], "8n");
   });
   console.log(final_notes)
