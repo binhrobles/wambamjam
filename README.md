@@ -1,4 +1,5 @@
-# WamBamJam
+# Beat-Map
+A 24 hour RC Never Graduate Week wambamjam.
 
 ## Concept
 - Vision-based, body controller (Physical -> Virtual action)
@@ -7,4 +8,3 @@
     - Geodata (OSM (?))
 - Make sounds! (Geo -> Sound)
     - ToneJS ?
-# wambamjam
