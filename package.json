@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@mediapipe/tasks-vision": "^0.10.13"
-  }
+    "@mediapipe/tasks-vision": "^0.10.13",
+    "kdbush": "^4.0.2",
+    "tone": "^14.9.17"
+  },
+  "type": "module"
 }

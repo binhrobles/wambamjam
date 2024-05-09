@@ -5,21 +5,6 @@ import {
 
 let handLandmarker = null;
 
-const createHandLandmarker = async () => {
-  const vision = await FilesetResolver.forVisionTasks(
-    "./node_modules/@mediapipe/tasks-vision/wasm"
-  );
-  handLandmarker = await HandLandmarker.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath: `./hand_landmarker.task`,
-      delegate: "GPU"
-    },
-    runningMode: 'VIDEO',
-    numHands: 2
-  });
-};
-createHandLandmarker();
-
 let circleLayer = null;
 
 const updateCircle = (point1, point2) => {
@@ -42,7 +27,7 @@ const updateCircle = (point1, point2) => {
   const dist = map.distance(latLng1, latLng2);
   const center = L.LineUtil.polylineCenter([latLng1, latLng2], map.options.crs);
 
-  console.log(`center at ${center}, dist is ${dist}`);
+  // console.log(`center at ${center}, dist is ${dist}`);
 
   if (!circleLayer) {
     circleLayer = L.circle(center, {radius: dist/2}).addTo(map);
@@ -50,6 +35,8 @@ const updateCircle = (point1, point2) => {
     circleLayer.setLatLng(center);
     circleLayer.setRadius(dist/2);
   }
+
+  window.handleCircle(circleLayer);
 };
 
 const video = document.getElementById("webcam");
@@ -58,13 +45,13 @@ let lastVideoTime = -1;
 let results = null;
 const predict = async () => {
   let startTimeMs = performance.now();
-  if (lastVideoTime !== video.currentTime) {
+  if (lastVideoTime !== video.currentTime && video.currentTime - lastVideoTime > 0.001) {
     lastVideoTime = video.currentTime;
     results = handLandmarker.detectForVideo(video, startTimeMs);
-  }
-  if (results?.landmarks.length >= 2) {
-    // 8 is index finger tip
-    updateCircle(results.landmarks[0][8], results.landmarks[1][8]);
+    if (results?.landmarks.length >= 2) {
+      // 8 is index finger tip
+      updateCircle(results.landmarks[0][8], results.landmarks[1][8]);
+    }
   }
 
   window.requestAnimationFrame(predict);
@@ -82,4 +69,18 @@ const enableCam = () => {
   });
 };
 
-document.getElementById("enableVision").onclick = enableCam;
+const createHandLandmarker = async () => {
+  const vision = await FilesetResolver.forVisionTasks(
+    "./node_modules/@mediapipe/tasks-vision/wasm"
+  );
+  handLandmarker = await HandLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath: `./hand_landmarker.task`,
+      delegate: "GPU"
+    },
+    runningMode: 'VIDEO',
+    numHands: 2
+  });
+  enableCam();
+};
+createHandLandmarker();

@@ -1,0 +1,31 @@
+import KDBush from "./node_modules/kdbush/index.js";
+
+const heightsBuffer = await (await fetch("heights.dat")).arrayBuffer();
+const heights = new Float32Array(heightsBuffer);
+
+const bushBuffer = await (await fetch("bush.dat")).arrayBuffer();
+const bush = KDBush.from(bushBuffer);
+
+let layerGroup = null;
+
+window.handleCircle = (circle) => {
+  const bounds = circle.getBounds();
+  // console.log(bounds);
+  const withinBounds = bush.range(bounds.getSouth(), bounds.getWest(), bounds.getNorth(), bounds.getEast());
+  if (withinBounds.length > 100) {
+    console.log(`${withinBounds.length} points is too many!`);
+    return;
+  }
+  const markers = [];
+  for (const i of withinBounds) {
+    const [x, y, height] = heights.slice(i*3, i*3 + 3);
+    if (window.map.distance(circle.getLatLng(), L.latLng(x, y)) > circle.getRadius()) {
+      continue;
+    }
+    markers.push(L.marker([x, y], {title: `${height}`}));
+  }
+  if (layerGroup) {
+    layerGroup.remove();
+  }
+  layerGroup = L.layerGroup(markers).addTo(window.map);
+};

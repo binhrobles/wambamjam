@@ -1,4 +1,19 @@
 #map {
   margin-top: 5vh;
-  height: 90vh;
+  width: 120vmin;
+  height: 90vmin;
+
+  opacity: 0.7;
+  z-index: 1;
+}
+
+#webcam {
+  position: absolute;
+  top: 0;
+
+  margin-top: 5vh;
+  width: 120vmin;
+  height: 90vmin;
+
+  transform: scaleX(-1);
 }
