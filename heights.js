@@ -17,18 +17,23 @@ window.handleCircle = (circle) => {
     return;
   }
   const markers = [];
-  const justHeights = [];
+
+  // objects of { height: number, distance: number, }
+  const buildingData = [];
   for (const i of withinBounds) {
-    const [x, y, height] = heights.slice(i*3, i*3 + 3);
-    if (window.map.distance(circle.getLatLng(), L.latLng(x, y)) > circle.getRadius()) {
+    const [x, y, height] = heights.slice(i * 3, i * 3 + 3);
+    const distance = window.map.distance(circle.getLatLng(), L.latLng(x, y));
+    if (distance > circle.getRadius()) {
       continue;
     }
-    markers.push(L.marker([x, y], {title: `${height}`}));
-    justHeights.push(height);
+
+    markers.push(L.marker([x, y]));
+
+    buildingData.push({ height, distance });
   }
   if (layerGroup) {
     layerGroup.remove();
   }
   layerGroup = L.layerGroup(markers).addTo(window.map);
-  window.change_heights(justHeights);
+  window.change_heights(buildingData);
 };

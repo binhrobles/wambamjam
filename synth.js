@@ -4,12 +4,11 @@ let notes = [];
 let i = 0;
 
 function play_synth() {
-  //array of heights to test
-  //const heights = [10.5, 18.0, 9.0, 3.3, 4.1, 7.5, 9.2, 62.5, 17.8, 10.6, 7.7, 57.5, 19.3, 7.2, 22.4, 50.0, 30.0, 45.0, 15.0, 20.9, 20.9, 16.5, 25.0, 10.0, 37.0, 117.1, 32.0, 25.0, 320.0, 45.0, 29.0, 161.0, 13.4, 46.3, 10.0, 10.0, 8.0, 90.0, 9.0, 28.5, 18.8, 18.8, 18.8, 18.8, 39.8, 28.0, 4.5, 4.5, 12.0, 12.0, 12.0, 5.0, 23.0, 20.0, 24.0, 24.0, 24.0, 13.5, 14.5, 13.5, 10.3, 13.0, 44.0, 83.0, 72.0, 76.0, 60.0, 88.0, 15.2, 40.0, 140.0, 12.9, 22.9, 65.1, 65.0, 13.4, 83.5, 7.0, 61.9, 5.6, 12.0, 54.0, 20.0, 44.6, 35.9, 29.0, 26.1, 12.7, 9.6, 8.9, 9.0, 6.6]
-  // const heights = [19.9,7.8,8.5,8.1,7.5,8.4,7.5,14.6,7.4,17.2,16.6,20.3,16.7,18.2,16.7,11.0,18.2,20.5]
   const heights = [10, 20];
+
   notes = map_heights_to_notes(heights)
   const bpm = findBPM(heights)
+
   console.log(bpm)
   const synth = new Tone.Synth().toDestination();
   loop = new Tone.Loop((time) => {
@@ -20,7 +19,9 @@ function play_synth() {
   Tone.Transport.bpm.value = bpm
 }
 
-function change_heights(heights) {
+function change_heights(buildingData) {
+  const heights = buildingData.map(b => b.height);
+
   if (!loop || heights.length == 0) {
     return;
   }
