@@ -5,21 +5,6 @@ import {
 
 let handLandmarker = null;
 
-const createHandLandmarker = async () => {
-  const vision = await FilesetResolver.forVisionTasks(
-    "./node_modules/@mediapipe/tasks-vision/wasm"
-  );
-  handLandmarker = await HandLandmarker.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath: `./hand_landmarker.task`,
-      delegate: "GPU"
-    },
-    runningMode: 'VIDEO',
-    numHands: 2
-  });
-};
-createHandLandmarker();
-
 let circleLayer = null;
 
 const updateCircle = (point1, point2) => {
@@ -84,4 +69,18 @@ const enableCam = () => {
   });
 };
 
-document.getElementById("enableVision").onclick = enableCam;
+const createHandLandmarker = async () => {
+  const vision = await FilesetResolver.forVisionTasks(
+    "./node_modules/@mediapipe/tasks-vision/wasm"
+  );
+  handLandmarker = await HandLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath: `./hand_landmarker.task`,
+      delegate: "GPU"
+    },
+    runningMode: 'VIDEO',
+    numHands: 2
+  });
+  enableCam();
+};
+createHandLandmarker();
