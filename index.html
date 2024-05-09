@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="styles.css" />
     <script>
+      let isPlaying = false;
       let loop = null;
       let notes = [];
       let i = 0;
@@ -35,7 +36,6 @@
             // subdivisions are given as subarrays
         }, "8n").start(0);
         Tone.Transport.bpm.value = bpm
-        Tone.Transport.start();
       }
 
       function change_heights(heights) {
@@ -47,11 +47,24 @@
         console.log(bpm)
         Tone.Transport.bpm.value = bpm
       }
+
+      function toggleSound() {
+        if (isPlaying) {
+          loop.stop();
+          Tone.Transport.stop()
+          isPlaying = false
+        } else {
+          play_synth();
+          Tone.Transport.start()
+          isPlaying = true;
+        }
+
+      }
     </script>
   </head>
 
   <body>
-    <button onclick="play_synth()">play</button>
+    <button onclick="toggleSound()">play</button>
     <div id="map"></div>
     <video id="webcam" autoplay disablePictureInPicture playsinline></video>
 
