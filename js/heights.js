@@ -1,7 +1,7 @@
-const heightsBuffer = await(await fetch("heights.dat")).arrayBuffer();
+const heightsBuffer = await(await fetch("data/heights.dat")).arrayBuffer();
 const heights = new Float32Array(heightsBuffer);
 
-const bushBuffer = await(await fetch("bush.dat")).arrayBuffer();
+const bushBuffer = await(await fetch("data/bush.dat")).arrayBuffer();
 const bush = KDBush.from(bushBuffer);
 
 let layerGroup = null;

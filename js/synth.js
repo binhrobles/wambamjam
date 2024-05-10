@@ -1,3 +1,6 @@
+import note_range from '../data/note_range.json' with { type: 'json' };
+import mapping_notes from '../data/mapping_notes.json' with { type: 'json' };
+
 window.isPlaying = false;
 let loop = null;
 let notes = [];
@@ -20,7 +23,7 @@ function play_synth() {
   Tone.Transport.bpm.value = bpm
 }
 
-function change_heights(buildingData) {
+window.change_heights = (buildingData) => {
   const heights = buildingData.map(b => b.height);
 
   if (!loop || buildingData.length == 0) {
@@ -33,7 +36,7 @@ function change_heights(buildingData) {
   Tone.Transport.bpm.value = bpm
 }
 
-function toggleSound() {
+window.toggleSound = () => {
   if (window.isPlaying) {
     loop.stop();
     Tone.Transport.stop()
@@ -54,11 +57,11 @@ const median = arr => {
 
 function map_heights_to_notes(heights) {
   const final_notes = heights.map(height => {
-    let diffArr = window.mapping_notes.map(x => Math.abs(height - x));
+    let diffArr = mapping_notes.map(x => Math.abs(height - x));
     let minNumber = diffArr.reduce((a, b) => Math.min(a, b), +Infinity);
     let index = diffArr.findIndex(x => x === minNumber);
-    console.log(index, window.note_range[index], window.mapping_notes[index], height)
-    return window.note_range[index]
+    console.log(note_range[index], mapping_notes[index], height)
+    return note_range[index]
     //synth.triggerAttackRelease(notes[index], "8n");
   });
   console.log(final_notes)

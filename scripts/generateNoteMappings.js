@@ -1,3 +1,6 @@
+import buildings from './heights.json' with { type: 'json' };
+import fs from 'fs';
+
 const buildMapping = (notes, high_note, low_note) => {
   const step = (high_note - low_note) / (notes.length)
   var mapping_notes = Array(notes.length);
@@ -18,24 +21,13 @@ const note_range = [
   "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7", "A7", "A#7", "B7",
 ]
 
-const buildCityWideMapping = async () => {
-  const res = await fetch("heights.json");
-  const buildings = await res.json();
-  const heights = buildings.map(b => b[2]);
-  const max_height = heights.reduce((a, b) => {
-    return Math.max(a, b);
-  }, -1);
+const heights = buildings.map(b => b[2]);
+const max_height = heights.reduce((a, b) => {
+  return Math.max(a, b);
+}, -1);
 
-  note_range.push("C8");
-  const mapping_notes = buildMapping(note_range, max_height, 0.0).concat(max_height);
+note_range.push("C8");
+const mapping_notes = buildMapping(note_range, max_height, 0.0).concat(max_height);
 
-  // console.log(mapping_notes);
-
-  window.note_range = note_range;
-  window.mapping_notes = mapping_notes;
-
-  console.log(window.mapping_notes);
-  console.log(window.note_range);
-}
-
-buildCityWideMapping();
+fs.writeFileSync('note_mappings/note_range.json', JSON.stringify(note_range));
+fs.writeFileSync('note_mappings/mapping_notes.json', JSON.stringify(mapping_notes));
