@@ -1,3 +1,7 @@
+// generates a mapping of heights to notes using the range of heights present in NYC
+// generates mappings are made available in the `data` folder
+// future: can generate mappings into set scales
+
 import buildings from './heights.json' with { type: 'json' };
 import fs from 'fs';
 
@@ -29,5 +33,5 @@ const max_height = heights.reduce((a, b) => {
 note_range.push("C8");
 const mapping_notes = buildMapping(note_range, max_height, 0.0).concat(max_height);
 
-fs.writeFileSync('note_mappings/note_range.json', JSON.stringify(note_range));
-fs.writeFileSync('note_mappings/mapping_notes.json', JSON.stringify(mapping_notes));
+fs.writeFileSync('data/note_range.json', JSON.stringify(note_range));
+fs.writeFileSync('data/mapping_notes.json', JSON.stringify(mapping_notes));
