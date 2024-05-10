@@ -30,10 +30,10 @@ const updateCircle = (point1, point2) => {
   // console.log(`center at ${center}, dist is ${dist}`);
 
   if (!circleLayer) {
-    circleLayer = L.circle(center, {radius: dist/2}).addTo(map);
+    circleLayer = L.circle(center, { radius: dist / 2 }).addTo(map);
   } else {
     circleLayer.setLatLng(center);
-    circleLayer.setRadius(dist/2);
+    circleLayer.setRadius(dist / 2);
   }
 
   window.handleCircle(circleLayer);
@@ -69,7 +69,7 @@ const enableCam = () => {
     return;
   }
 
-  navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
+  navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
     video.srcObject = stream;
     video.addEventListener("loadeddata", predict);
   });
