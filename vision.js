@@ -1,7 +1,7 @@
 import {
   HandLandmarker,
   FilesetResolver
-} from "./node_modules/@mediapipe/tasks-vision/vision_bundle.mjs";
+} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js";
 
 let handLandmarker = null;
 
@@ -77,7 +77,7 @@ const enableCam = () => {
 
 const createHandLandmarker = async () => {
   const vision = await FilesetResolver.forVisionTasks(
-    "./node_modules/@mediapipe/tasks-vision/wasm"
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
   );
   handLandmarker = await HandLandmarker.createFromOptions(vision, {
     baseOptions: {
