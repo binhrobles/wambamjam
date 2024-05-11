@@ -1,6 +1,6 @@
 const [note_range, mapping_notes] = await Promise.all([
-    fetch("../data/note_range.json").then(res => res.json()),
-    fetch("../data/mapping_notes.json").then(res => res.json())
+    fetch("data/note_range.json").then(res => res.json()),
+    fetch("data/mapping_notes.json").then(res => res.json())
 ]);
 
 window.isPlaying = false;
